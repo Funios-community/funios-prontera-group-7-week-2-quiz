@@ -29,4 +29,71 @@ if username != nil {
   NOTE: Jangan buat fungsi kosong, buat yang meaningful dan implementasikan apa yang kita sudah pelajari diprontera.
  */
 
+struct Buku {
+    let judul: String
+    let penulis: String
+    let tahun_terbit: Int
+    let jumlah_halaman: Int
+    let best_seller: Bool
+}
 
+class Manusia {
+    let nama: String
+    let umur: Int
+    let asal: String
+    let buku_favorit: Buku?
+    private(set) var teman_teman: Array<Manusia>
+    
+    
+    init(nama: String, umur: Int, asal: String, buku_favorit: Buku?, teman_teman: Array<Manusia>) {
+        self.nama = nama
+        self.umur = umur
+        self.asal = asal
+        self.buku_favorit = buku_favorit
+        self.teman_teman = teman_teman
+    }
+    
+    func perkenalan(){
+        print("Halo! nama saya \(nama), saya berumur \(umur) tahun dan berasal dari \(asal).")
+        if let buku = buku_favorit {
+            print("Saya senang membaca. Buku favorit saya berjudul \(buku.judul).")
+        }
+        print("Salam kenal.")
+    }
+    
+    func tambahTeman(teman: Manusia){
+        teman_teman.append(teman)
+    }
+    
+}
+
+class Siswa: Manusia {
+    let sekolah: String
+    
+     init(nama: String, umur: Int, asal: String, buku_favorit: Buku?, teman_teman: Array<Manusia>, sekolah: String) {
+        self.sekolah = sekolah
+        super.init(nama: nama, umur: umur, asal: asal, buku_favorit: buku_favorit, teman_teman: teman_teman)
+    }
+    
+    func perkenalan(hobi: String) {
+        print("Halo! nama saya \(nama), saya bersekolah di \(sekolah), hobi saya adalah \(hobi).")
+    }
+    
+    override func tambahTeman(teman: Manusia) {
+        super.tambahTeman(teman: teman)
+        print("Senang berteman dengan kamu, \(teman.nama)!")
+    }
+}
+
+let buku = Buku(judul: "Bobo", penulis: "xxx", tahun_terbit: 1111, jumlah_halaman: 2000, best_seller: true)
+
+let orang = Manusia(nama: "Budi", umur: 3, asal: "Palembang", buku_favorit: nil, teman_teman: [])
+
+orang.perkenalan()
+
+let siswa = Siswa(nama: "Lala", umur: 10, asal: "Palembang", buku_favorit: buku, teman_teman: [], sekolah: "Sekolah-sekolahan")
+
+siswa.perkenalan()
+siswa.perkenalan(hobi: "tidur")
+siswa.tambahTeman(teman: orang)
+print(siswa.teman_teman.first!.nama)
